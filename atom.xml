@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>IRES的博客</title>
+  
+  <subtitle>新手上路</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-10-06T11:33:12.955Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>IRES</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2021/10/06/hello-world/"/>
+    <id>http://example.com/2021/10/06/hello-world/</id>
+    <published>2021-10-06T14:17:03.738Z</published>
+    <updated>2021-10-06T11:33:12.955Z</updated>
+    
+    <content type="html"><![CDATA[<p>经过一番努力，终于搭好了这个博客。作为一名IT行业的人员，有一个自己的博客当然是一件很酷的事，后面会不定时更新自己的一些学习心得与思考，还有日常的一些趣事，也希望这个博客能够督促自己去保持学习的热情（太缺少这种热情了…）</p><p><img src="C:\Users\admin\Desktop\96d99aa1ly1ghfbk5xr7ij20iw0e5406.jpg" alt="96d99aa1ly1ghfbk5xr7ij20iw0e5406"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;经过一番努力，终于搭好了这个博客。作为一名IT行业的人员，有一个自己的博客当然是一件很酷的事，后面会不定时更新自己的一些学习心得与思考，还有日常的一些趣事，也希望这个博客能够督促自己去保持学习的热情（太缺少这种热情了…）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;C:\Users\</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
