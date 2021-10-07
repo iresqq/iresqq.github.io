@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-06T15:27:38.885Z</updated>
+  <updated>2021-10-07T15:54:27.108Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>排序算法</title>
+    <link href="http://example.com/2021/10/07/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    <id>http://example.com/2021/10/07/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</id>
+    <published>2021-10-07T15:38:40.097Z</published>
+    <updated>2021-10-07T15:54:27.108Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="时间复杂度和空间复杂度"><a href="#时间复杂度和空间复杂度" class="headerlink" title="时间复杂度和空间复杂度"></a>时间复杂度和空间复杂度</h1><p><strong>时间复杂度</strong>：不要低阶项，只要最高项，并且忽略系数</p><p>最高阶的系数越低，认为算法性能越好</p><ol><li><p>遍历一遍O(N)</p></li><li><p>二分查找：每次砍一半，一共可以砍logN次，因此O(logN)，优于O(N)</p></li><li><p>找出有序数组a[1,2,3,5]和b[2,3,5,7]的公共部分</p><p>方法一：a中的每个数去b中查询 O(NM) 数组a中每个数字在b中遍历M次</p><p>方法二：由于有序，a数组中每个数字去b中二分查找O(NlogM)</p><p>方法三：两个指针p,q分别指向数组a,b的第一个元素，进行比较，哪个数小，就往后移动哪个指针，当两个指针指向的数相同时，两个指向同时向后移动一位，并输出相同的数，由于两个数组分别最多移动N和M次，因此O(N+M).</p></li></ol><p><strong>空间复杂度</strong>：常数项不计，只算最高阶</p><p>先满足时间复杂度，再满足空间复杂度</p><p>辅助空间常数级别O(1)</p><ol><li><p>数组逆序</p><p>比如：数组[1，2，3，4，5]逆序</p><p>​            分别让两个指针p,q指向数组的两端，让两个指针指向的数字交换，然后同时向中间移动一位，当两个指针相碰时结束。不需要额外的辅助空间，因此时O（1）</p><p>再比如：数组[1,2,3,4,5 ,6,7]，左边[1,2,3,4,5]和右边[6,7]部分交换顺序，变成[6,7,1,2,3,4,5]</p><p>​            对左边逆序[5,4,3,2,1],右边逆序[7,6],即[5,4,3,2,1,7,6]</p><p>​            再整体逆序[6,7,1,2,3,4,5]就达到左右交换的目的</p></li></ol><h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>时间复杂度O(N^2)，额外空间复杂度O(1)，实现可以做到稳定性。</p><blockquote><p>第一次遍历N,第二次N-1，第三次N-2，最后1，共[N+(N-1)+(N-2)+(N-3)+…..+1]</p></blockquote><p><strong>基本思想</strong>：通过对待排序序列从前向后（从下标较小的元素开始） ,依次比较相邻元素的值， 若发现逆序则交换。</p><p>​                    一共进行数组的个数-1次排序。</p><p>​                    ==每次把最大的值交换到后面==</p><p><strong>优化</strong>：如果一趟比较下来没有进行过交换， 就说明序列有序， 因此要在排序过程中设置一个标志 flag 判断元素是否进行过交换。    </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">      <span class="keyword">if</span>(arr == <span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用来优化的标志，如果在这一趟排序中，没有交换，则表明已经排好序了退出</span></span><br><span class="line">    <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>; <span class="comment">//临时变量，用来交换</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一共进行arr.length-1次大的循环</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; arr.length - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; arr.length -<span class="number">1</span>- i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j] &gt; arr[j+<span class="number">1</span>]) &#123;</span><br><span class="line">                flag = <span class="keyword">true</span>; <span class="comment">//说明进行了交换</span></span><br><span class="line">                temp = arr[j];</span><br><span class="line">                arr[j] = arr[j+<span class="number">1</span>];</span><br><span class="line">                arr[j+<span class="number">1</span>] = temp;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!flag)&#123;<span class="comment">//// 在一趟排序中， 一次交换都没有发生过，排序已经完成</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            flag = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>时间复杂度O(N^2)， 额外空间复杂度O(1)， 实现不可以做到稳定性  </p><p><strong>基本思想：</strong>第一次从 arr[0]<del>arr[n-1]中选取最小值，与 arr[0]交换， 第二次从 arr[1]</del>arr[n-1]中选取最小值， 与 arr[1]交换， 第三次从 arr[2]<del>arr[n-1]中选取最小值， 与 arr[2]交换， …， 第 i 次从 arr[i-1]</del>arr[n-1]中选取最小值， 与 arr[i-1]交换， …, 第 n-1 次从 arr[n-2]~arr[n-1]中选取最小值，与 arr[n-2]交换， 总共通过 n-1 次， 得到一个按排序码从小到大排列的有序序列。  </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length-<span class="number">1</span>; i ++)&#123;</span><br><span class="line">           <span class="keyword">int</span> minIndex = i;  <span class="comment">//将i作为当前的最小值</span></span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; arr.length; j ++)&#123;</span><br><span class="line">              minIndex =  arr[minIndex] &gt; arr[j] ? j:minIndex;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           swap(arr,i,minIndex);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> temp = arr[i];</span><br><span class="line">       arr[i] = arr[j];</span><br><span class="line">       arr[j] = temp;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;时间复杂度和空间复杂度&quot;&gt;&lt;a href=&quot;#时间复杂度和空间复杂度&quot; class=&quot;headerlink&quot; title=&quot;时间复杂度和空间复杂度&quot;&gt;&lt;/a&gt;时间复杂度和空间复杂度&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;时间复杂度&lt;/strong&gt;：不要低阶项，只要最高项</summary>
+      
+    
+    
+    
+    <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="排序算法" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2021/10/06/hello-world/"/>
     <id>http://example.com/2021/10/06/hello-world/</id>
     <published>2021-10-06T14:17:03.738Z</published>
-    <updated>2021-10-06T15:27:38.885Z</updated>
+    <updated>2021-10-07T13:16:23.639Z</updated>
     
     <content type="html"><![CDATA[<p>经过一番努力，终于搭好了这个博客的框架，后续会进行功能的完善。作为一名技术人员，一定要有一个自己的博客，用途暂定为记录自己在技术方面的学习过程与心得，同时会分享一些日常生活中的趣事（如果有的话）</p><p><img src="http://img1.baidu.com/it/u=4099511622,2105431981&fm=253&app=138&f=JPEG?w=668&h=500" alt="一张有趣的图"></p>]]></content>
     
@@ -34,6 +58,10 @@
     
     
     
+    <category term="博客搭建" scheme="http://example.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="博客搭建" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
